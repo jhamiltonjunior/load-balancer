@@ -1,0 +1,21 @@
+x-rinha-lb-base: &rinha-lb-base
+  image: jhamiltonjunior/balanca-da-justica:0.0.1
+  # build:
+  #   context: .
+  #   dockerfile: Dockerfile
+  networks:
+    - app-network
+  ports:
+    - "9999:8000"
+  environment:
+    - EXTERNAL_HOSTS=rinha-api-1:3000,rinha-api-2:3000,rinha-api-3:3000
+
+services:
+  nginx:
+    <<: *rinha-lb-base
+    
+
+networks:
+  app-network:
+    name: app-network
+    driver: bridge
